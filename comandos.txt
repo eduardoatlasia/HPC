@@ -1,0 +1,32 @@
+#!/bin/bash -l
+
+#SBATCH --job-name=FineTuneQwen3
+
+USER_HOME=$(eval echo ~$USER)
+PROJECT_DIR="$USER_HOME/FINETUNING"
+IMAGE_NAME="qwen3-pt-lora"
+
+# Output e Erro de Log
+#SBATCH --output="$PROJECT_DIR/output/logs/slurm_out_%j.txt"
+#SBATCH --error="$PROJECT_DIR/output/logs/slurm_err_%j.txt"
+
+# Define recursos
+#SBATCH -n 16 # CPU
+#SBATCH -N 1  # 1 no - maquina
+#SBATCH --gres=gpu:1
+#SBATCH --time=1-00:00:00
+
+# Partição
+#SBATCH -p arandu
+
+docker build -t qwen3-pt-lora .
+
+docker run \
+    --rm \
+    --gpus \"device=$CUDA_VISIBLE_DEVICES\" \
+    --user $(id -u):$(id -g) \
+    -v "$PROJECT_DIR/input:/workspace/HPC/input" \
+    -v "$PROJECT_DIR/output:/workspace/HPC/output" \
+    -w /workspace/HPC \
+    "$IMAGE_NAME" \
+    python train_qwen3_pt_lora.py
