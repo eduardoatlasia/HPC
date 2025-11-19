@@ -1,0 +1,25 @@
+Seguem as instruções para acesso e utilização do cluster (DGX H100) que será utilizado durante o curso.
+
+1. Credenciais de Acesso
+
+Seu nome de usuário (login) foi criado conforme informado no campo “Usuário Desejado” do formulário.
+A sua senha inicial segue um padrão composto por:
+
+Login: definido conforme o formulário
+Token da aula: rRRX6#u#44TM
+Formato da senha: <seu_login><token>
+
+Exemplo:
+Se o usuário for joaosilva, a senha inicial será:
+joaosilvarRRX6#u#44TM
+eduardocpachecorRRX6#u#44TM
+
+2. Acesso via SSH
+
+Ative a VPN utilizando o arquivo de configuração que foi passado no e-mail do formulário.
+Seu usuário e senha tanto do cluster quanto da VPN são iguais.
+
+Use um terminal (Linux/macOS) ou PowerShell/PuTTY (Windows), VScode, Termiu ou o que preferir para realizar a conexão:
+
+ssh eduardocpacheco@192.168.1.100 
+senha eduardocpacheco rRRX6#u#44TM

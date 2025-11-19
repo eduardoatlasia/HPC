@@ -1,0 +1,83 @@
+docker build -t qwen-pt-lora .
+
+
+docker run --gpus all -it --rm \
+  -v $(pwd)/input:/workspace/HPC/input \
+  -v $(pwd)/output:/workspace/HPC/output \
+  qwen-pt-lora
+
+/input
+_/data -> o corpus
+_/scripts -> os scripts
+
+/output
+_/model -> o modelo
+_/logs
+/metrics
+modelcard.md
+dockerfile
+
+
+python finetune_gemma2_2b_it.py
+
+
+-v /HOME/$USER/FINETUNING/input:/workspace/finetuning/input
+-v /HOME/$USER/FINETUNING/output:/workspace/finetuning/output
+
+
+#!/bin/bash -l
+
+#SBATCH --job-name=FineTuneGemma2
+
+# Output e Erro de Log
+#SBATCH --output=/HOME/$USER/FINETUNING/output/logs/slurm_out_%j.txt
+#SBATCH --error=/HOME/$USER/FINETUNING/output/logs/slurm_err_%j.txt
+
+# Define recursos
+#SBATCH -n 16 # CPU
+#SBATCH -N 1  # 1 maquina
+#SBATCH --gres=gpu:1 # 1 GPU
+#SBATCH --time=1-00:00:00
+
+# Partição
+#SBATCH -p arandu
+
+IMAGE_NAME="seu_repositorio/nome_da_imagem:tag"
+
+docker run \
+    --rm \
+    --gpus all \
+    --user $(id -u):$(id -g) \
+    -v "/HOME/seu_usuario_aqui/FINETUNING/input:/workspace/finetuning/input:ro" \
+    -v "/HOME/seu_usuario_aqui/FINETUNING/output:/workspace/finetuning/output:rw" \
+    -w /workspace/finetuning \
+    "seus_repositorio/nome_da_imagem:tag" \
+    python finetune_gemma2_2b_it.py
+
+
+
+    pra dar build: 
+docker build -t qwen3-pt-lora .
+Pra rodar com gpu e volumes:
+
+docker run --gpus all -it --rm \
+  -v $(pwd)/input:/workspace/HPC/input \
+  -v $(pwd)/output:/workspace/HPC/output \
+  qwen3-pt-lora
+
+
+20:12
+No container:
+
+cd /workspace/HPC/input/scripts
+python train_qwen3_pt_lora.py
+
+
+
+export HPC_ROOT=/scratch/SEU_USUARIO/HPC
+
+docker run --gpus \"device=$CUDA_VISIBLE_DEVICES\" --rm \
+  -v $HPC_ROOT/input:/workspace/HPC/input \
+  -v $HPC_ROOT/output:/workspace/HPC/output \
+  qwen3-pt-lora
+
