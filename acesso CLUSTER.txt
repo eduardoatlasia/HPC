@@ -21,5 +21,11 @@ Seu usuário e senha tanto do cluster quanto da VPN são iguais.
 
 Use um terminal (Linux/macOS) ou PowerShell/PuTTY (Windows), VScode, Termiu ou o que preferir para realizar a conexão:
 
+
+openvpn3 session-start --config C4AI-VPN.ovpn
+eduardocpacheco 
+eduardocpachecorRRX6#u#44TM
+
+
 ssh eduardocpacheco@192.168.1.100 
 senha eduardocpacheco rRRX6#u#44TM

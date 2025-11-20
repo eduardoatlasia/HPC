@@ -7,7 +7,7 @@
 #SBATCH --error=/HOME/$USER/FINETUNING/output/logs/slurm_err_%j.txt
 
 # Define recursos
-#SBATCH -n 16 # CPU
+#SBATCH -n 1 # CPU
 #SBATCH -N 1  # 1 maquina
 #SBATCH --gres=gpu:1 # 1 GPU
 #SBATCH --time=1-00:00:00
